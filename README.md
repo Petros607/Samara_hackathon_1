@@ -1,1 +1,6 @@
-# Samara_hackathon_1
+# Samara_hackathon
+ИИ-ассистент, внедренный в bbb, для создания конспектов лекций.
+
+
+
+## @Команда "cucumberы" 
