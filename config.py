@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
+PATH = r'C:\Users\xma4602\Desktop\Samara_hackathon_1'
 
 DB_HOST = os.environ.get("DB_HOST")
 DB_PORT = os.environ.get("DB_PORT")
