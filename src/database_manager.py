@@ -1,32 +1,31 @@
-from src import database, models
-import logging
+import os
+import pathlib
 
-from typing import Union
-from sqlalchemy import text, select
+path_file = ""
+path_db = ""
 
-
-async def add_user(username: str, email: str, sex: bool, age: int) -> bool:
+def add_file(id: int,
+             url_id: str,
+             name_subject: str,
+             name_teacher: str,
+             date: str,
+             length: str,
+             path: str,
+             size: str):
     pass
 
-async def update_user():
+def remove_file(id: int):
     pass
 
-
-async def add_object():
+def search_file(name_teacher: str,
+                name_object: str,
+                date: str,
+                count: int):
     pass
 
-async def edit_object():
+def get_max_id() -> int:
     pass
 
-async def delete_object():
+def remove_temporary_files(url_id: str):
     pass
-
-async def estimate_object():
-    pass
-
-async def delete_object_estimate():
-    pass
-
-
-
 
