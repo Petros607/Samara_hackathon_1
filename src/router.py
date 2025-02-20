@@ -24,6 +24,6 @@ async def download_file(id_pdf):
     return "file"
 
 @router.get("/list_pdf",
-            description="Отправка списка похожих pdf по названию предмета, педагогу")
+            description="Отправка списка похожих files по названию предмета, педагогу")
 async def get_list_pdf(file_name, teacher):
     return {"file_name": file_name, "teacher": teacher}

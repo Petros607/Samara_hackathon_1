@@ -1,32 +1,21 @@
-from src import database, models
-import logging
-
-from typing import Union
-from sqlalchemy import text, select
-
-
-async def add_user(username: str, email: str, sex: bool, age: int) -> bool:
+def add_file(id: int,
+             name_subject: str,
+             name_teacher: str,
+             date: str,
+             length: str,
+             path: str,
+             size: str):
     pass
 
-async def update_user():
+def remove_file(id: int):
     pass
 
-
-async def add_object():
+def search_file(name_teacher: str,
+                name_object: str,
+                date: str,
+                count: int):
     pass
 
-async def edit_object():
+def get_max_id() -> int:
     pass
-
-async def delete_object():
-    pass
-
-async def estimate_object():
-    pass
-
-async def delete_object_estimate():
-    pass
-
-
-
 
