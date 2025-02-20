@@ -6,6 +6,7 @@ from langchain_core.prompts.prompt import PromptTemplate
 import os
 import json
 from dotenv import load_dotenv
+
 load_dotenv(".env")
 
 # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -98,8 +99,3 @@ class SummaryLection:
         )
         res = chain.invoke({"input_documents": documents})
         return res["output_text"].replace(". ", ".\n")
-
-
-# SummaryLection.transform_json_to_txt("result2.json", "to_summ.txt")
-# summarizer = SummaryLection()
-# print(summarizer.summarize_from_file("to_summ.txt"))
