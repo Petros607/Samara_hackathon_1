@@ -1,5 +1,6 @@
 import whisper
 from datetime import time
+import json
 
 
 def seconds_to_time(seconds: int | float) -> time:
@@ -21,6 +22,23 @@ class AudioRecognition:
             Defaults to "turbo".
         """
         self.model = whisper.load_model(model)
+
+    def recognize_to_file(self, input_file: str, output_file: str) -> None:
+        text_parts = self.model.transcribe(input_file, word_timestamps=True)["segments"]
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(text_parts, f, ensure_ascii=False)
+
+    def parse_from_file(
+        self,
+        input_file: str,
+        audio_delay: int | None = None,
+        slide_count: int | None = None,
+    ) -> list[list[dict[str, str | time]]]:
+        with open(input_file, "r", encoding="utf-8") as f:
+            text_parts = json.load(f)
+        return self._divide_text_parts(
+            text_parts=text_parts, audio_delay=audio_delay, slide_count=slide_count
+        )
 
     def recognize(
         self,
@@ -99,7 +117,3 @@ class AudioRecognition:
                 border = start_time + delay
                 to_cut = []
         return result
-
-
-recognizer = AudioRecognition()
-print(recognizer.recognize("lecture.mp3"))
