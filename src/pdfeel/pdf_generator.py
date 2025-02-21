@@ -30,12 +30,16 @@ class BbbPDF(FPDF):
         self.cell(text=page, center=True)
 
 
-def generate_filename(subject='', speaker='', date_time=str(date.today())):
+def generate_filename(url_id, subject='', speaker='', date_time=str(date.today())):
+    '''
     filename = date_time + '.pdf'
     if speaker != '':
         filename = speaker + ' - ' + filename
     if subject != '':
         filename = subject + ' - ' + filename
+    '''
+
+    filename = url_id + ".pdf"
 
     return filename
 

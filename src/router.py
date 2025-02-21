@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+import controller
 import response
 
 router = APIRouter(
@@ -17,7 +18,7 @@ async def get_home_page():
 @router.get("/get_list",
              description="Получение списка лекций комнаты")
 async def post_url(url_room: str):
-    return "list"
+    return controller.get_list_lecture(url_room)
 
 @router.get("/get_lecture",
             description="Отправка списка похожих files по названию предмета, педагогу")

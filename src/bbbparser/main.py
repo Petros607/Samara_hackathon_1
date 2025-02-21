@@ -66,8 +66,8 @@ class Parser:
             }}
             data.update(dict)
             i += 1
-        print(json.dumps(data, indent=4))
-        return 0
+
+        return json.dumps(data, indent=4)
 
     def main_cycle(self, url):
         self.download_image(self.get_data(url))
