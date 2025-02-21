@@ -2,16 +2,9 @@ import os.path
 from datetime import date, time
 from os import listdir
 from pathlib import Path
-
 from fpdf import FPDF
-
-from svg2png import svg2png
 from config import PATH
-from lxml import etree
 
-def clean_svg(file_path):
-    tree = etree.parse(file_path)
-    tree.write(file_path, pretty_print=True, xml_declaration=True, encoding='UTF-8')
 
 
 path_resources = Path(PATH) / "src/pdfeel/resource/"
@@ -103,8 +96,6 @@ def generate_pdf(images_path, texts, summary, file_path):
         if images is not None and len(images) > 0:
             # вставка слайдов (если имеются)
             svg_path = Path(images_path) / images[i]
-            # png_path = str(svg_path).replace(".svg", ".png")
-            clean_svg(svg_path)
             pdf.image(svg_path, w=pdf.epw)
             pdf.ln()
         for paragraph in texts[i]:
