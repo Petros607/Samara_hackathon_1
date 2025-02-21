@@ -1,23 +1,30 @@
 # Как использовать модуль
+
 ```python
-from decode_audio.audio_recognition import AudioRecognition
+from src.ai.decode_audio.audio_recognition import AudioRecognition
 
 recognizer = AudioRecognition()
 result = recognizer.recognize(
-    input_file = "path_to_audio_file",
-    audio_delay = <длительность видео/аудио>,
-    slide_count = <количество слайдов>)
+    input_file="path_to_audio_file",
+    audio_delay= < длительность
+видео / аудио >,
+slide_count = < количество
+слайдов >)
 ```
 
 Если текст уже распознан и записан в json:
+
 ```python
-   from decode_audio.audio_recognition import AudioRecognition
-   recognizer = AudioRecognition()
-   data = recognizer.parse_from_file(
-    input_file = "path_to_json_file",
-    audio_delay = <длительность видео/аудио>,
-    slide_count = <количество слайдов>
-   )
+   from src.ai.decode_audio.audio_recognition import AudioRecognition
+
+recognizer = AudioRecognition()
+data = recognizer.parse_from_file(
+    input_file="path_to_json_file",
+    audio_delay= < длительность
+видео / аудио >,
+slide_count = < количество
+слайдов >
+)
 ```
 Вовзращает список список словарей, каждый словарь содержит datetime.time времени начала отрывка и соответсвтвующий тест.
 Пример:

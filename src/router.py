@@ -10,7 +10,7 @@ router = APIRouter(
 @router.get("/home",
             description="Простая отправка страницы сайта")
 async def get_home_page():
-    return "Home page"
+    return "Home"
 
 
 @router.post("/post_url",
