@@ -9,6 +9,7 @@ body {
     height: 100vh;
 }
 
+
 .container-wrapper {
     display: flex;
     width: 100%;
@@ -25,6 +26,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     justify-content: center;
+
 }
 
 .lections_container {
@@ -82,6 +84,9 @@ div #title {
 
 .lection_download_btn {
     align-content: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
 #searchButton {
@@ -112,7 +117,6 @@ div #title {
     width: auto;
     margin-top: 10px;
     font-size: 2rem;
-    wifth: 96%;
 }
 
 #dataTable {
@@ -201,7 +205,6 @@ div #title {
 .lection_download_btn:hover {
     background-color: #0056b3;
 }
-
 
 .lection_name {
     padding: 10px;
