@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+import response
 
 router = APIRouter(
     tags=["Base"]
@@ -10,7 +11,7 @@ router = APIRouter(
 @router.get("/home",
             description="Простая отправка страницы сайта")
 async def get_home_page():
-    return "Home page"
+    return response.generate_html_response("src/frontend/webpage/index.html")
 
 
 @router.get("/get_list",
