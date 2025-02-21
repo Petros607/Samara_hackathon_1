@@ -1,0 +1,144 @@
+body {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2.5rem;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 1rem;
+    width: 96%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.lections_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-self: flex-start;
+}
+
+div #title {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: center;
+    color: #333;
+}
+
+.logo {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.logo_text {
+    margin-left: -21px;
+}
+
+.logo_bbb {
+    color: #1a315f;
+}
+
+.logo_k {
+    font-size: 4rem
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#urlInput {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#searchButton {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    background-color: #1a315f;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#searchButton:hover {
+    background-color: #0056b3;
+}
+
+#response {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+}
+
+#tableSection {
+    /* display: none; Скрываем таблицу по умолчанию */
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    font-size: 2rem;
+}
+
+#dataTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#dataTable th, #dataTable td {
+    border: 1px solid #fff;
+    padding: 8px;
+    text-align: left;
+}
+
+#dataTable th {
+    background-color: #fff;
+    color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+#downloadButton {
+    padding: 10px 20px;
+    background-color: #1a315f;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    float: right; /* Кнопка справа */
+}
+
+#downloadButton:hover {
+    background-color: #0056b3;
+}
+
+.lection_name {
+    padding: 10px;
+}
+
+.lection_time {
+    padding: 10px;
+}
+
+/* .hidden {
+    display: none;
+} */
