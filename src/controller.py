@@ -25,7 +25,9 @@ def handler_lecture(url_lecture: str):
         path_temp_file_json = PATH / f"data/temporary_files/{url_id}/temp.json"
         path_temp_file_txt = PATH / f"data/temporary_files/{url_id}/temp.txt"
         length_audio = Parser.get_length(str(PATH / f"data/temporary_files/{url_id}/audio/lecture.webm"))
-        count_slides = len(os.listdir(PATH / f"data/temporary_files/{url_id}/slides/"))
+        slides = os.listdir(PATH / f"data/temporary_files/{url_id}/slides/")
+        count_slides = len(list(filter(lambda x: x.endswith('.svg'), slides)))
+        print("COUNT: ", count_slides)
 
         recognizer = AudioRecognition()
         summarizer = SummaryLection()
@@ -40,6 +42,7 @@ def handler_lecture(url_lecture: str):
             audio_delay=length_audio,
             slide_count=count_slides
         )
+        print("FINAL COUNT", len(text))
 
         summarizer.transform_json_to_txt(
             input_file=path_temp_file_json,
@@ -63,5 +66,4 @@ def handler_lecture(url_lecture: str):
                                       path=PATH / f"data/files/{url_id}.pdf",
                                       size=None)
         
-    print(str(PATH / f"data/files/{url_id}.pdf"))
     return str(PATH / f"data/files/{url_id}.pdf")

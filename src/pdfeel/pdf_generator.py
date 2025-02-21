@@ -4,6 +4,12 @@ from os import listdir
 from pathlib import Path
 from fpdf import FPDF
 from config import PATH
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPDF
+from fpdf import FPDF
+from pdf2image import convert_from_path
+from PIL import Image
+import fitz
 
 
 
@@ -66,6 +72,17 @@ def generate_filename(url_id, subject="", speaker="", date_time=str(date.today()
 
     return filename
 
+def process_image(svg_path: str) -> str:
+    pdf_path = str(svg_path).replace(".svg", ".pdf")
+    png_path = str(svg_path).replace(".svg", ".png")
+    drawing = svg2rlg(svg_path)
+    renderPDF.drawToFile(drawing, pdf_path)
+    pdf_document = fitz.open(pdf_path)
+    page = pdf_document.load_page(0)
+    pix = page.get_pixmap(dpi=300)
+    img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+    img.save(png_path, "PNG")
+    return png_path
 
 def generate_pdf(images_path, texts, summary, file_path):
     """
@@ -76,9 +93,10 @@ def generate_pdf(images_path, texts, summary, file_path):
     if os.path.exists(images_path):
         images = listdir(images_path)
         images.sort(key=lambda x: int(x.replace("slide", "").replace(".svg", "")))
+    print("IMAGES", images)
+    print(len(images))
 
     pdf = BbbPDF()
-
     # вставка аннотации
     pdf.set_font(family=font_family, style="B")
     pdf.cell(w=0, h=7, text="Аннотация")
@@ -91,12 +109,14 @@ def generate_pdf(images_path, texts, summary, file_path):
     pdf.set_font(family=font_family, style="B")
     pdf.cell(w=0, h=7, text="Протокол лекции")
     pdf.ln()
-
     for i in range(len(texts)):
+        
         if images is not None and len(images) > 0:
             # вставка слайдов (если имеются)
             svg_path = Path(images_path) / images[i]
-            pdf.image(svg_path, w=pdf.epw)
+            png_path = process_image(svg_path)
+            
+            pdf.image(png_path, w=pdf.epw)
             pdf.ln()
         for paragraph in texts[i]:
             # вставка тайм-кода
