@@ -10,10 +10,9 @@ path_db = PATH / "data/db.json"
 
 
 def get_max_id() -> int:
-    with open(path_db, "r") as db:
-        db = db.read()
+    with open(path_db, "r") as f:
+        db = json.load(f)
 
-    db = eval(db)
 
     max_id = 0
     for i in db["list"]:
@@ -49,7 +48,7 @@ def add_file(name_file: str,
 
 
 def remove_temporary_files(url_id: str):
-    #shutil.rmtree(PATH / f"data/temporary_files/{url_id}")
+    shutil.rmtree(PATH / f"data/temporary_files/{url_id}")
     pass
 
 def check_lecture(url_lecture: str) -> bool:
@@ -71,11 +70,11 @@ def update_json(dict_lecture: dict):
     for lecture in list_lecture:
         for element in db["list"]:
             if lecture["url"] == element["url"]:
-                # lecture["id"] = element["id"]
-                # lecture["name_file"] = element["name_file"]
-                # lecture["length"] = element["length"]
-                # lecture["path"] = element["path"]
-                # lecture["size"] = element["size"]
+                lecture["id"] = element["id"]
+                lecture["name_file"] = element["name_file"]
+                lecture["length"] = element["length"]
+                lecture["path"] = element["path"]
+                lecture["size"] = element["size"]
 
                 break
 

@@ -22,14 +22,11 @@ async def get_home_page(request: Request):
              description="Получение списка лекций комнаты")
 async def get_list(url_room: str):
     print(url_room)
-    x= src.controller.get_list_lecture(url_room)
-    print(x)
-    return x
+    return src.controller.get_list_lecture(url_room)
 
 @router.get("/get_lecture",
             description="Получение материалов лекции")
 async def get_lecture(url_lecture:str):
-    print("HUI: ", url_lecture)
-    print("123123123123")
+
     path = src.controller.handler_lecture(url_lecture=url_lecture)
     return FileResponse(path=path, filename="conspect.pdf")

@@ -31,7 +31,7 @@ function set_lections(lections) {
         const lection = document.createElement("div");
         lection.className = "lections";
         lection_url = lections[key]["url"];
-        createAndAppendElementWithInnerHTML(`<div class="lection_name_teacher">${lections[key]["name_teacher"]}</div><div class="lection_title">${lections[key]["name_subject"]}</div><div class="lection_time">${lections[key]["datetime"]}</div><div class="lection_download_btn"><button onClick="httpGet('/get_lecture?url_lecture=${lection_url}')" id="searchButton">${lections[key]['path'] == null ? 'Сгенерировать':'Скачать'}</button></div>`, lection);
+        createAndAppendElementWithInnerHTML(`<div class="lection_name_teacher">${lections[key]["name_teacher"]}</div><div class="lection_title">${lections[key]["name_subject"]}</div><div class="lection_time">${lections[key]["datetime"]}</div><div class="lection_download_btn"><a href="/get_lecture?url_lecture=${lection_url}" id="searchButton">${lections[key]['path'] == null ? 'Сгенерировать':'Скачать'}</a></div>`, lection);
         parent_elem.appendChild(lection);
     }
     parent_elem.classList.add("visible");
@@ -56,6 +56,7 @@ function httpGet(theUrl )
             if (!response.ok) {
                 throw new Error('Ошибка');
             }
+            console.log(response);
             console.log(response.blob())
             return response.blob();
         })
@@ -83,7 +84,7 @@ function modify_lections(lections) {
         const lection = document.createElement("div");
         lection.className = "lections";
         lection_url = lections[key]["url"];
-        createAndAppendElementWithInnerHTML(`<div class="lection_name_teacher">${lections[key]["name_teacher"]}</div><div class="lection_title">${lections[key]["name_subject"]}</div><div class="lection_time">${lections[key]["datetime"]}</div><div class="lection_download_btn"><button onClick="httpGet('/get_lecture?url_lecture=${lection_url}')" id="searchButton">${lections[key]['path'] == null ? 'Сгенерировать':'Скачать'}</button></div>`, lection);
+        createAndAppendElementWithInnerHTML(`<div class="lection_name_teacher">${lections[key]["name_teacher"]}</div><div class="lection_title">${lections[key]["name_subject"]}</div><div class="lection_time">${lections[key]["datetime"]}</div><div class="lection_download_btn"><a href="/get_lecture?url_lecture=${lection_url}" id="searchButton">${lections[key]['path'] == null ? 'Сгенерировать':'Скачать'}</a></div>`, lection);
         parent_elem.appendChild(lection);
     }
     parent_elem.classList.add("visible");

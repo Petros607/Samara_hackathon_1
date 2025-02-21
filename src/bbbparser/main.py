@@ -82,24 +82,21 @@ class Parser:
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
         duration = result.stdout.decode('utf-8').strip()
-        print(duration)
-        
         return float(duration)
 
     def download_image(self, url: str):
         i = 1
         url = url.split("&")[0]
-        id = url.split("/")[4]
-
-        path_id = pathlib.Path(PATH_files) / id
-
+        id = url.split("/")[6]
+        id_for_path = url.split("/")[4]
+        path_id = PATH_files / id_for_path
         if not os.path.exists(path_id):
             os.makedirs(path_id)
         if not os.path.exists(path_id / 'slides'):
             os.makedirs(path_id / "slides")
         while True:
             try:
-                save_path = path_id / f"/slides/slide{str(i)}.svg"
+                save_path = path_id / f"slides/slide{str(i)}.svg"
                 response = requests.get(url + str(i) + ".svg")
                 if response.status_code == 200:
                     with open(save_path, "wb") as file:
@@ -114,4 +111,4 @@ class Parser:
 
 if __name__ == "__main__":
     test = Parser()
-    test.get_metadata(METADATA_TEST_URL)
+    test.download_image(test.get_data(TEST_URL))

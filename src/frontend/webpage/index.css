@@ -134,7 +134,7 @@ div #title {
     margin: 0;
 }
 
-#downloadButton {
+#downloadButton a {
     padding: 10px 20px;
     background-color: #1a315f;
     color: #efefef;
@@ -144,7 +144,7 @@ div #title {
     float: right; /* Кнопка справа */
 }
 
-#downloadButton:hover {
+#downloadButton a:hover {
     background-color: #0056b3;
 }
 
@@ -181,8 +181,9 @@ div #title {
     flex: 1;
 }
 
-.lection_download_btn button {
+.lection_download_btn #searchButton {
     margin: 20px;
+    text-decoration: none;
     text-align: center;
     margin-right: 20px;
     border: none;
@@ -197,7 +198,7 @@ div #title {
     font-size: 16px;
 }
 
-.lection_download_btn button:hover {
+.lection_download_btn #searchButton a:hover {
     background-color: #0056b3;
 }
 
