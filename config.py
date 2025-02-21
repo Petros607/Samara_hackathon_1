@@ -1,12 +1,10 @@
-# данный скрипт вытягивает все чувствительные данные из .env и подставляет туда, где это необходимо
-
+import pathlib
 import os
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
-
-PATH = r'C:\Users\xma4602\Desktop\Samara_hackathon_1'
-
+PATH = pathlib.Path(__file__).parent
+PATH_str = str(PATH)
 DB_HOST = os.environ.get("DB_HOST")
 DB_PORT = os.environ.get("DB_PORT")
 DB_NAME = os.environ.get("DB_NAME")
