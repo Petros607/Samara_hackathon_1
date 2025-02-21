@@ -67,7 +67,7 @@ class Parser:
             data.update(dict)
             i += 1
 
-        return json.dumps(data, indent=4)
+        return data
 
     def main_cycle(self, url):
         self.download_image(self.get_data(url))
@@ -75,10 +75,10 @@ class Parser:
         # self.get_length(url.split("/")[6] + "/audio/lecture.webm")
         return url.split("/")[6]
 
-    def get_length(self, webm):
+    def get_length(self, path):
         result = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
                                  "format=duration", "-of",
-                                 "default=noprint_wrappers=1:nokey=1", webm],
+                                 "default=noprint_wrappers=1:nokey=1", path],
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
         return float(result.stdout)
