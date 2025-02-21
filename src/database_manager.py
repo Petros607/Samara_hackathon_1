@@ -2,6 +2,7 @@ import os
 import pathlib
 import shutil
 from config import PATH
+import json
 
 PATH_files = PATH / "data/files"
 path_db = PATH / "data/db.json"
@@ -42,9 +43,8 @@ def add_file(name_file: str,
             "size": size
         }
     )
-
     with open(path_db, "w") as file:
-        file.write(db)
+        json.dump(db, file)
 
     return 0
 
@@ -64,9 +64,8 @@ def update_json(dict_lecture: dict):
     list_lecture = list(v)
 
     with open(path_db, "r") as db:
-        db = db.read()
+        db = json.load(db)
 
-    db = eval(db)
     data = {}
     i = 0
 

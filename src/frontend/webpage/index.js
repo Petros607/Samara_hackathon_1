@@ -46,13 +46,31 @@ function simulate_loading() {
     overlay.style.display = "flex";
 }
 
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return eval(xmlHttp.responseText);
+async function httpGet(theUrl)
+{   
+    simulate_loading();
+    try {
+        console.log(theUrl);
+        const response = await fetch(theUrl);
+        console.log(response.status);
+        if (!responce.ok) {
+            throw new Error(`Ошибка загрузки`)
+        };
+        const blob = await response.blob();
+        const link = document.createElement("a");
+        link.style.display = "none";
+        link.href = URL.createObjectURL(blob);
+        link.download = fileUrl.split('/').pop();
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(link.href);
+    } catch(error) {
+        overlay.style.display = "none"
+    }
 };
+
 
 function modify_lections(lections) {
     const parent_elem = document.getElementById("tableSection");

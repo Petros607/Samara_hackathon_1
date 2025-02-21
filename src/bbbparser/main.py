@@ -15,7 +15,7 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 }
 
-PATH_files = pathlib.Path(PATH) / "data/temporaryFiles"
+PATH_files = pathlib.Path(PATH) / "data/temporary_files"
 
 
 class Parser:
@@ -41,7 +41,7 @@ class Parser:
         if not os.path.exists(path_id / "audio"):
             os.makedirs(path_id / "audio")
 
-        urllib.request.urlretrieve(audio_url, id + "/audio/" + 'lecture.webm')
+        urllib.request.urlretrieve(audio_url, path_id / "audio/lecture.webm")
         return 0
 
     def get_metadata(self, url):
@@ -81,7 +81,10 @@ class Parser:
                                  "default=noprint_wrappers=1:nokey=1", path],
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
-        return float(result.stdout)
+        duration = result.stdout.decode('utf-8').strip()
+        print(duration)
+        
+        return float(duration)
 
     def download_image(self, url: str):
         i = 1

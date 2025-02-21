@@ -24,7 +24,7 @@ class AudioRecognition:
         self.model = whisper.load_model(model)
 
     def recognize_to_file(self, input_file: str, output_file: str) -> None:
-        text_parts = self.model.transcribe(input_file, word_timestamps=True)["segments"]
+        text_parts = self.model.transcribe(str(input_file), word_timestamps=True)["segments"]
         with open(output_file, "w", encoding="utf-8") as f:
             json.dump(text_parts, f, ensure_ascii=False)
 

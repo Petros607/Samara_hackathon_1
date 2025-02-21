@@ -77,7 +77,7 @@ def generate_pdf(images_path, texts, summary, file_path):
     pdf.ln()
 
     for i in range(len(texts)):
-        if images is not None:
+        if images is not None and len(images) > 0:
             # вставка слайдов (если имеются)
             pdf.image(images[i], w=pdf.epw)
             pdf.ln()

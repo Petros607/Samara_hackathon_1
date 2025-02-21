@@ -27,4 +27,6 @@ async def get_list(url_room: str):
 @router.get("/get_lecture",
             description="Получение материалов лекции")
 async def get_lecture(url_lecture:str):
+    print("РОУТЕР РАБОТАЕТ")
+    src.controller.handler_lecture(url_lecture=url_lecture)
     return FileResponse(path=PATH / "config.py", filename="test.txt", media_type='multipart/form-data')

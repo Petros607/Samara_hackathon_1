@@ -181,10 +181,9 @@ div #title {
     flex: 1;
 }
 
-.lection_download_btn {
+.lection_download_btn button {
     margin: 20px;
     text-align: center;
-    margin-left: 10px;
     margin-right: 20px;
     border: none;
     width: 170px;
@@ -198,9 +197,10 @@ div #title {
     font-size: 16px;
 }
 
-.lection_download_btn:hover {
+.lection_download_btn button:hover {
     background-color: #0056b3;
 }
+
 
 
 .lection_name {
