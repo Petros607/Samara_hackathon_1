@@ -3,6 +3,7 @@ import pathlib
 import shutil
 from config import PATH
 import json
+import copy
 
 PATH_files = PATH / "data/files"
 path_db = PATH / "data/db.json"
@@ -27,11 +28,9 @@ def add_file(name_file: str,
              length: int,
              path: str,
              size: int):
+    with open(path_db, "r") as f:
+        db = json.load(f)
 
-    with open(path_db, "r") as db:
-        db = db.read()
-
-    db = eval(db)
 
     db["list"].append(
         {
@@ -39,7 +38,7 @@ def add_file(name_file: str,
             "name_file": name_file,
             "url": url,
             "length": length,
-            "path": path,
+            "path": str(path),
             "size": size
         }
     )
@@ -50,12 +49,12 @@ def add_file(name_file: str,
 
 
 def remove_temporary_files(url_id: str):
-    shutil.rmtree(PATH / f"data/temporary_files/{url_id}")
-
+    #shutil.rmtree(PATH / f"data/temporary_files/{url_id}")
+    pass
 
 def check_lecture(url_lecture: str) -> bool:
-    with open(path_db, "r") as db:
-        db = db.read()
+    with open(path_db, "r") as f:
+        db = f.read()
     return url_lecture in db
 
 
@@ -63,8 +62,8 @@ def update_json(dict_lecture: dict):
     v = dict_lecture.values()
     list_lecture = list(v)
 
-    with open(path_db, "r") as db:
-        db = json.load(db)
+    with open(path_db, "r") as f:
+        db = json.load(f)
 
     data = {}
     i = 0
@@ -72,11 +71,11 @@ def update_json(dict_lecture: dict):
     for lecture in list_lecture:
         for element in db["list"]:
             if lecture["url"] == element["url"]:
-                lecture["id"] = element["id"]
-                lecture["name_file"] = element["name_file"]
-                lecture["length"] = element["length"]
-                lecture["path"] = element["path"]
-                lecture["size"] = element["size"]
+                # lecture["id"] = element["id"]
+                # lecture["name_file"] = element["name_file"]
+                # lecture["length"] = element["length"]
+                # lecture["path"] = element["path"]
+                # lecture["size"] = element["size"]
 
                 break
 

@@ -4,7 +4,6 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import FileResponse
 import src.controller
-import src.response
 from config import PATH
 
 router = APIRouter(
@@ -22,11 +21,15 @@ async def get_home_page(request: Request):
 @router.get("/get_list",
              description="Получение списка лекций комнаты")
 async def get_list(url_room: str):
-    return src.controller.get_list_lecture(url_room)
+    print(url_room)
+    x= src.controller.get_list_lecture(url_room)
+    print(x)
+    return x
 
 @router.get("/get_lecture",
             description="Получение материалов лекции")
 async def get_lecture(url_lecture:str):
-    print("РОУТЕР РАБОТАЕТ")
-    src.controller.handler_lecture(url_lecture=url_lecture)
-    return FileResponse(path=PATH / "config.py", filename="test.txt", media_type='multipart/form-data')
+    print("HUI: ", url_lecture)
+    print("123123123123")
+    path = src.controller.handler_lecture(url_lecture=url_lecture)
+    return FileResponse(path=path, filename="conspect.pdf")

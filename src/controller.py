@@ -17,6 +17,7 @@ def get_list_lecture(url_room: str) -> dict[dict]:
 
 
 def handler_lecture(url_lecture: str):
+    url_id=url_lecture.split("/")[-1]
     if not src.database_manager.check_lecture(url_lecture):
         url_id = Parser.main_cycle(url_lecture)
 
@@ -29,10 +30,10 @@ def handler_lecture(url_lecture: str):
         recognizer = AudioRecognition()
         summarizer = SummaryLection()
 
-        recognizer.recognize_to_file(
-            input_file=path_audio_file,
-            output_file=path_temp_file_json
-        )
+        # recognizer.recognize_to_file(
+        #     input_file=path_audio_file,
+        #     output_file=path_temp_file_json
+        # )
 
         text = recognizer.parse_from_file(
             input_file=path_temp_file_json,
@@ -61,3 +62,6 @@ def handler_lecture(url_lecture: str):
                                       length=length_audio,
                                       path=PATH / f"data/files/{url_id}.pdf",
                                       size=None)
+        
+    print(str(PATH / f"data/files/{url_id}.pdf"))
+    return str(PATH / f"data/files/{url_id}.pdf")

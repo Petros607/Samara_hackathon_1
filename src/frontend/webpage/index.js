@@ -46,30 +46,33 @@ function simulate_loading() {
     overlay.style.display = "flex";
 }
 
-async function httpGet(theUrl)
+function httpGet(theUrl )
 {   
+    document.getElementById('response').innerText = '';
     simulate_loading();
-    try {
-        console.log(theUrl);
-        const response = await fetch(theUrl);
-        console.log(response.status);
-        if (!responce.ok) {
-            throw new Error(`Ошибка загрузки`)
-        };
-        const blob = await response.blob();
-        const link = document.createElement("a");
-        link.style.display = "none";
-        link.href = URL.createObjectURL(blob);
-        link.download = fileUrl.split('/').pop();
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        URL.revokeObjectURL(link.href);
-    } catch(error) {
-        overlay.style.display = "none"
-    }
+    console.log(theUrl);
+    fetch(theUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка');
+            }
+            console.log(response.blob())
+            return response.blob();
+        })
+        .then(blob => {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = theUrl.split('/').pop();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        })
+        .catch (error => {
+            document.getElementById('response').innerText = 'Ошибка загрузки файла';
+        })
 };
+
 
 
 function modify_lections(lections) {
