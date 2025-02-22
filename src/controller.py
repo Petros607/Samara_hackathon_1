@@ -5,6 +5,7 @@ from src.ai.decode_audio.audio_recognition import AudioRecognition
 from src.ai.summary.summary import SummaryLection
 from src.pdfeel import pdf_generator as pdf
 from config import PATH
+import json
 
 Parser = src.bbbparser.main.Parser()
 
@@ -42,7 +43,6 @@ def handler_lecture(url_lecture: str):
             audio_delay=length_audio,
             slide_count=count_slides
         )
-        print("FINAL COUNT", len(text))
 
         summarizer.transform_json_to_txt(
             input_file=path_temp_file_json,

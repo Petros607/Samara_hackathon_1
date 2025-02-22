@@ -62,8 +62,8 @@ class AudioRecognition:
         to_join = []
         border = start_time + delay
         for part in text_parts:
-            if not start_time:
-                start_time = part["start"]
+            # if not start_time:
+            #     start_time = part["start"]
             if part["start"] < border:
                 to_join.append(part["text"])
             else:
@@ -75,9 +75,17 @@ class AudioRecognition:
                     result.append([new_part])
                 else:
                     result.append(new_part)
-                to_join = []
+                to_join = [part["text"]]
+                start_time = border
                 border = border + delay
-                start_time = None
+        new_part = {
+            "time": seconds_to_time(part["start"]),
+            "text":part["text"]
+        }
+        if need_enclosure:
+            result.append([new_part])
+        else:
+            result.append(new_part)
         return result
 
     def _divide_text_parts(
@@ -108,12 +116,20 @@ class AudioRecognition:
                 result.append(
                     self._divide_text_parts_by_delay(
                         start_time=start_time,
-                        delay=60,
+                        delay=self._DELAY,
                         text_parts=to_cut,
                         need_enclosure=False,
                     )
                 )
-                start_time = part["start"]
-                border = start_time + delay
-                to_cut = []
+                start_time = border
+                border = border + delay
+                to_cut = [part]
+        result.append(
+            [
+                {
+                    "time": seconds_to_time(part["start"]),
+                    "text":part["text"]
+                }
+            ]
+        )
         return result

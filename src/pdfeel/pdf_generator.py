@@ -109,9 +109,14 @@ def generate_pdf(images_path, texts, summary, file_path):
     pdf.set_font(family=font_family, style="B")
     pdf.cell(w=0, h=7, text="Протокол лекции")
     pdf.ln()
-    for i in range(len(texts)):
+    
+    #КООООСТТЫЫЫЫЛЬЬЬЬ!!!!!!!
+    length = min(len(images), len(texts))
+    
+    for i in range(length):
         
         if images is not None and len(images) > 0:
+          
             # вставка слайдов (если имеются)
             svg_path = Path(images_path) / images[i]
             png_path = process_image(svg_path)
@@ -127,6 +132,17 @@ def generate_pdf(images_path, texts, summary, file_path):
             pdf.set_font(family=font_family, style="")
             pdf.multi_cell(w=0, h=7, text=str(paragraph["text"].strip()))
             pdf.ln()
-
+            
+    #КООООСТТЫЫЫЫЛЬЬЬЬ!!!!!!!
+    for i in range(len(images), len(texts)):
+        for paragraph in texts[i]:
+            # вставка тайм-кода
+            pdf.set_font(family=font_family, style="B")
+            pdf.cell(w=0, h=7, text=str(paragraph["time"]))
+            pdf.ln()
+            # вставка текста
+            pdf.set_font(family=font_family, style="")
+            pdf.multi_cell(w=0, h=7, text=str(paragraph["text"].strip()))
+            pdf.ln()
     # сохранение файла
     pdf.output(file_path)

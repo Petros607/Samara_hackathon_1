@@ -106,13 +106,11 @@ div #title {
 }
 
 #tableSection {
-    /* display: none; Скрываем таблицу по умолчанию */
     align-items: center;
     justify-content: center;
     width: auto;
     margin-top: 10px;
     font-size: 2rem;
-    wifth: 96%;
 }
 
 #dataTable {
@@ -178,27 +176,32 @@ div #title {
 
 .lection_time {
     color: #4f4f4f;
+    text-align: center;
     flex: 1;
 }
 
-.lection_download_btn #searchButton {
+.lection_download_btn {
     margin: 20px;
-    text-decoration: none;
     text-align: center;
     margin-right: 20px;
     border: none;
     width: 170px;
     justify-content: center;
-    background-color: #1a315f;
-    color: #efefef;
-    border-radius: 4px;
-    cursor: pointer;
     align-items: center;
-    margin-right: 20px;
+    background-color: #1a315f;
+    border-radius: 4px;
     font-size: 16px;
 }
 
-.lection_download_btn #searchButton a:hover {
+.lecture_download_a {
+    color: #efefef;
+    text-decoration: none;
+    width: 100%;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+.lection_download_a:hover {
     background-color: #0056b3;
 }
 
@@ -231,21 +234,21 @@ div #title {
     background-color: transparent;
     width: 200px;
     height: 200px;
-    /* animation: spin 1s linear infinite; */
+    /* animation: spin 5s linear infinite; */
 }
 
 @keyframes spin{
     0% {
-        transform: rotate(0deg);
+        transform: translateX(-200%) rotate(0deg);
     }
     100% {
-        transform: rotate(360deg);
+        transform: translateX(-200%) rotate(360deg);
     }
 }
 
 .hidden {
     opacity: 0;
-    transform: opacity 2s ease-in-out;
+    transition: opacity 2s ease-in-out;
 }
 
 .hidden.visible {
