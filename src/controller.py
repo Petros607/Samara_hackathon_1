@@ -28,7 +28,6 @@ def handler_lecture(url_lecture: str):
         length_audio = Parser.get_length(str(PATH / f"data/temporary_files/{url_id}/audio/lecture.webm"))
         slides = os.listdir(PATH / f"data/temporary_files/{url_id}/slides/")
         count_slides = len(list(filter(lambda x: x.endswith('.svg'), slides)))
-        print("COUNT: ", count_slides)
 
         recognizer = AudioRecognition()
         summarizer = SummaryLection()
