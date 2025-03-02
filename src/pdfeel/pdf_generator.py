@@ -93,8 +93,6 @@ def generate_pdf(images_path, texts, summary, file_path):
     if os.path.exists(images_path):
         images = listdir(images_path)
         images.sort(key=lambda x: int(x.replace("slide", "").replace(".svg", "")))
-    print("IMAGES", images)
-    print(len(images))
 
     pdf = BbbPDF()
     # вставка аннотации
@@ -110,10 +108,10 @@ def generate_pdf(images_path, texts, summary, file_path):
     pdf.cell(w=0, h=7, text="Протокол лекции")
     pdf.ln()
     
-    #КООООСТТЫЫЫЫЛЬЬЬЬ!!!!!!!
-    length = min(len(images), len(texts))
+    # #КООООСТТЫЫЫЫЛЬЬЬЬ!!!!!!!
+    # length = min(len(images), len(texts))
     
-    for i in range(length):
+    for i in range(len(images)):
         
         if images is not None and len(images) > 0:
           
@@ -133,16 +131,16 @@ def generate_pdf(images_path, texts, summary, file_path):
             pdf.multi_cell(w=0, h=7, text=str(paragraph["text"].strip()))
             pdf.ln()
             
-    #КООООСТТЫЫЫЫЛЬЬЬЬ!!!!!!!
-    for i in range(len(images), len(texts)):
-        for paragraph in texts[i]:
-            # вставка тайм-кода
-            pdf.set_font(family=font_family, style="B")
-            pdf.cell(w=0, h=7, text=str(paragraph["time"]))
-            pdf.ln()
-            # вставка текста
-            pdf.set_font(family=font_family, style="")
-            pdf.multi_cell(w=0, h=7, text=str(paragraph["text"].strip()))
-            pdf.ln()
+    # #КООООСТТЫЫЫЫЛЬЬЬЬ!!!!!!!
+    # for i in range(len(images), len(texts)):
+    #     for paragraph in texts[i]:
+    #         # вставка тайм-кода
+    #         pdf.set_font(family=font_family, style="B")
+    #         pdf.cell(w=0, h=7, text=str(paragraph["time"]))
+    #         pdf.ln()
+    #         # вставка текста
+    #         pdf.set_font(family=font_family, style="")
+    #         pdf.multi_cell(w=0, h=7, text=str(paragraph["text"].strip()))
+    #         pdf.ln()
     # сохранение файла
     pdf.output(file_path)

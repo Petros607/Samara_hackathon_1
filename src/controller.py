@@ -39,7 +39,6 @@ def handler_lecture(url_lecture: str):
 
         text = recognizer.parse_from_file(
             input_file=path_temp_file_json,
-            audio_delay=length_audio,
             slide_count=count_slides
         )
 

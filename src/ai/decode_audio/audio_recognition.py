@@ -31,13 +31,12 @@ class AudioRecognition:
     def parse_from_file(
         self,
         input_file: str,
-        audio_delay: int | None = None,
         slide_count: int | None = None,
     ) -> list[list[dict[str, str | time]]]:
         with open(input_file, "r", encoding="utf-8") as f:
             text_parts = json.load(f)
         return self._divide_text_parts(
-            text_parts=text_parts, audio_delay=audio_delay, slide_count=slide_count
+            text_parts=text_parts, slide_count=slide_count
         )
 
     def recognize(
@@ -48,88 +47,63 @@ class AudioRecognition:
     ) -> list[list[dict[str, str | time]]]:
         text_parts = self.model.transcribe(input_file, word_timestamps=True)["segments"]
         return self._divide_text_parts(
-            text_parts=text_parts, audio_delay=audio_delay, slide_count=slide_count
+            text_parts=text_parts, slide_count=slide_count
         )
 
     def _divide_text_parts_by_delay(
         self,
         text_parts: list[dict],
         delay: int,
-        start_time: float,
-        need_enclosure: bool,
-    ) -> list[dict] | list[list[dict]]:
+    ) -> list[dict]:
         result = []
         to_join = []
-        border = start_time + delay
+        start_time = text_parts[0]["start"]
+        end = start_time+delay
         for part in text_parts:
-            # if not start_time:
-            #     start_time = part["start"]
-            if part["start"] < border:
+            if part["start"]<end:
                 to_join.append(part["text"])
             else:
-                new_part = {
-                    "time": seconds_to_time(start_time),
-                    "text": "".join(to_join),
-                }
-                if need_enclosure:
-                    result.append([new_part])
-                else:
-                    result.append(new_part)
+                result.append(
+                    {
+                        "time": seconds_to_time(start_time),
+                        "text": "".join(to_join)
+                    }
+                )
+                start_time = part["start"]
+                end = start_time+delay
                 to_join = [part["text"]]
-                start_time = border
-                border = border + delay
-        new_part = {
-            "time": seconds_to_time(part["start"]),
-            "text":part["text"]
-        }
-        if need_enclosure:
-            result.append([new_part])
-        else:
-            result.append(new_part)
+        result.append(
+            {
+                "time": seconds_to_time(start_time),
+                "text": "".join(to_join)
+            }
+        )
         return result
 
     def _divide_text_parts(
         self,
         text_parts: list[dict],
-        audio_delay: int | None = None,
         slide_count: int | None = None,
     ) -> list[list[dict[str, str | time]]]:
-        if (
-            not (audio_delay and slide_count)
-            or audio_delay // slide_count < self._DELAY * 2
-        ):
-            return self._divide_text_parts_by_delay(
-                start_time=0,
-                delay=self._DELAY,
-                text_parts=text_parts,
-                need_enclosure=True,
-            )
-        delay = audio_delay // slide_count
-        start_time = 0
+        if not slide_count:
+            slide_count+=1
+        audio_delay = text_parts[-1]["end"]
+        slide_delay = audio_delay / slide_count
+        end = slide_delay
         result = []
-        to_cut = []
-        border = start_time + delay
+        grouped_parts = []
         for part in text_parts:
-            if part["start"] < border:
-                to_cut.append(part)
+            if part["start"] <= end:
+                grouped_parts.append(part)
             else:
-                result.append(
-                    self._divide_text_parts_by_delay(
-                        start_time=start_time,
-                        delay=self._DELAY,
-                        text_parts=to_cut,
-                        need_enclosure=False,
-                    )
-                )
-                start_time = border
-                border = border + delay
-                to_cut = [part]
-        result.append(
-            [
-                {
-                    "time": seconds_to_time(part["start"]),
-                    "text":part["text"]
-                }
-            ]
-        )
+                result.append(self._divide_text_parts_by_delay(
+                    text_parts=grouped_parts,
+                    delay =  self._DELAY,
+                ))
+                grouped_parts = [part]
+                end = part["start"] + slide_delay
+        result.append(self._divide_text_parts_by_delay(
+                    text_parts=grouped_parts,
+                    delay =  self._DELAY,
+                ))
         return result
