@@ -44,7 +44,7 @@ langchain==0.3.19
 langchain-community==0.3.17
 langchain-core==0.3.36
 langchain-gigachat==0.3.4
-langchain-text-splitters==0.3.6
+langchain-text-splitters==0.3.9
 langfuse==2.59.3
 langsmith==0.1.147
 llvmlite==0.44.0
